@@ -1,0 +1,82 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentContact.id">
+    <h4>Запись</h4>
+    <div>
+      <label><strong>ФИО:</strong></label> {{ currentContact.username }}
+    </div>
+    <div>
+      <label><strong>Email:</strong></label>
+      {{ currentContact.email }}
+    </div>
+    <div>
+      <label><strong>Номер телефона:</strong></label>
+      {{ currentContact.mobile }}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/contacts/{{ currentContact.id }}"
+    >
+      Редактировать
+    </a>
+  </div>
+
+  <div *ngIf="!currentContact">
+    <br />
+    <p>Пожалуйста, нажмите на запись</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentContact.id" class="edit-form">
+    <h4>Запись</h4>
+    <form>
+      <div class="form-group">
+        <label for="username">ФИО</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          required
+          [(ngModel)]="currentContact.username"
+          name="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          class="form-control"
+          id="email"
+          required
+          [(ngModel)]="currentContact.email"
+          name="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input
+          class="form-control"
+          id="mobile"
+          required
+          [(ngModel)]="currentContact.mobile"
+          name="mobile"
+        />
+      </div>
+    </form>
+
+    <button class="badge badge-danger mr-2" (click)="deleteContact()">
+      Удалить
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateContact()"
+    >
+      Обновить
+    </button>
+    <p>{{ message }}</p>
+  </div>
+</ng-template>

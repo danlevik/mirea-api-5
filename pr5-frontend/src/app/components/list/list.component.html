@@ -1,0 +1,40 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Поиск по ФИО"
+        [(ngModel)]="username"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="searchUsername()">
+          Поиск
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Список записей</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let contact of contacts; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveContact(contact, i)"
+      >
+        {{ contact.username }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllContacts()">
+      Удалить все
+    </button>
+  </div>
+  <div class="col-md-6">
+    <app-details
+      [viewMode]="true"
+      [currentContact]="currentContact"
+    ></app-details>
+  </div>
+</div>
